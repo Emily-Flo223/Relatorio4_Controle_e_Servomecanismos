@@ -1,0 +1,11 @@
+// [EXERCÍCIO 1 - LISTING 2] Geração dos diagramas de Bode no Scilab.
+
+// Definição do sistema e polinomio em s
+s=%s
+G=syslin('c', 200*s + 100, 400*s^2 + 200*s + 100)
+
+// Diagrama de Bode com frequencia ajustavel
+bode(G, 0.01/(2*%pi), 100/(2*%pi), 'rad')
+xgrid();
+
+title("Diagrama de Bode - Sistema Massa-Mola-Amortecedor (Exercício 1.c)");

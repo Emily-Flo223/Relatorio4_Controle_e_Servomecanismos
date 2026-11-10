@@ -1,0 +1,8 @@
+// [EXERCÍCIO 2 - LISTING 2] Geração do Diagrama de Black no Scilab.
+
+scf(3);
+black(L);
+
+scf(4);
+black(L);
+nicholschart();

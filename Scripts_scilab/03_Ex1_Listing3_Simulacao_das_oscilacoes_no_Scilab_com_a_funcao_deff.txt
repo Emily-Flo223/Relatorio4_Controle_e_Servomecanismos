@@ -1,0 +1,50 @@
+// [EXERCÍCIO 1 - LISTING 3] Simulação das oscilações no Scilab com a função deff.
+
+// Definição do sistema e polinomio em s
+s=%s
+G=syslin('c', 200*s + 100, 400*s^2 + 200*s + 100)
+
+// Definição das entradas de trepidacao usando deff
+deff('u = seno10(t)', 'u = 5 * sin(10 * t)'); // Entrada para w = 10 rad/s
+deff('u = seno20(t)', 'u = 5 * sin(20 * t)'); // Entrada para w = 20 rad/s
+
+t = linspace(0, 30, 3001); // 3001 pontos entre 0 e 30 segundos (passo de 0,01 s)
+
+// Simulação da resposta temporal usando csim
+y1 = csim(seno10, t, G);
+y2 = csim(seno20, t, G);
+
+// Visualização dos resultados
+subplot(2,1,1);
+plot(t, 5*sin(10*t), 'r--', t, y1, 'b-');
+xgrid();
+title('Simulação w = 10 rad/s');
+xlabel('Tempo (s)');
+ylabel('Deslocamento (cm)');
+legend(['Entrada u(t) (Solo, Um = 5 cm)'; 'Saida y(t) (Massa, Ym aprox. 0.25 cm)'], 'in_lower_right');
+
+subplot(2,1,2);
+plot(t, 5*sin(20*t), 'r--', t, y2, 'b-');
+xgrid();
+title('Simulação w = 20 rad/s');
+xlabel('Tempo (s)');
+ylabel('Deslocamento (cm)');
+legend(['Entrada u(t) (Solo, Um = 5 cm)'; 'Saida y(t) (Massa, Ym aprox. 0.125 cm)'], 'in_lower_right');
+
+// Figura 2: saida em regime permanente (ultimos 4 s)
+scf(2);
+idx = find(t >= 26);
+
+subplot(2,1,1);
+plot(t(idx), y1(idx), 'b-');
+xgrid();
+title('Saida y(t) em regime permanente, w = 10 rad/s');
+xlabel('Tempo (s)');
+ylabel('Deslocamento (cm)');
+
+subplot(2,1,2);
+plot(t(idx), y2(idx), 'b-');
+xgrid();
+title('Saida y(t) em regime permanente, w = 20 rad/s');
+xlabel('Tempo (s)');
+ylabel('Deslocamento (cm)');

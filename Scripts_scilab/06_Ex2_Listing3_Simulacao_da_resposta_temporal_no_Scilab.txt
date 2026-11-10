@@ -1,0 +1,16 @@
+// [EXERCÍCIO 2 - LISTING 3] Simulação da resposta temporal no Scilab.
+
+Ts = 0.01;
+t = 0:Ts:30;
+
+u = sin(sqrt(2)*t);
+
+T = L/(1 + L);
+y = csim(u, t, T);
+
+scf(5);
+plot(t, u, 'r--', t, y, 'b-');
+xgrid();
+xlabel("Tempo (s)");
+ylabel("Amplitude");
+legend(["Entrada u(t)"; "Saida y(t)"]);

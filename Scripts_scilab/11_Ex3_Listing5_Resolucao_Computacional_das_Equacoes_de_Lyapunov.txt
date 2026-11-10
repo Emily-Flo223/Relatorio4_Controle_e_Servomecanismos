@@ -1,0 +1,13 @@
+// [EXERCÍCIO 3 - LISTING 5] Resolução Computacional das Equações de Lyapunov
+
+// --- Item E: Matrizes de Lyapunov ---
+A_cl = Aa - Ba*[K, -ki];
+Q_c = eye(3, 3);
+Pc = lyap(A_cl, -Q_c, 'c'); 
+
+A_obs = A - L_scilab*C;
+Q_o = eye(2, 2);
+Po = lyap(A_obs, -Q_o, 'c');
+
+disp(spec(Pc), "Autovalores de Pc (>0):");
+disp(spec(Po), "Autovalores de Po (>0):");

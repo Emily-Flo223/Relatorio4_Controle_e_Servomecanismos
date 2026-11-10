@@ -1,0 +1,13 @@
+// [EXERCÍCIO 2 - LISTING 1] Geração do Diagrama de Nyquist no Scilab.
+
+s = poly(0, 's');
+g = 1 / (s * (s + 1) * (s + 2));
+c = 6;
+L = syslin('c', c * g);
+
+scf(1);
+nyquist(L);
+
+scf(2);
+nyquist(L);
+hallchart();

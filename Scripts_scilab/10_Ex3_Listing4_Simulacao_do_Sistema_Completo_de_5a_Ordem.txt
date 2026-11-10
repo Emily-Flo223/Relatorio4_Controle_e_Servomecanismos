@@ -1,0 +1,17 @@
+// [EXERCÍCIO 3 - LISTING 4] Simulação do Sistema Completo de 5ª Ordem
+
+// --- Item D: Simulacao em Malha Fechada ---
+A_mf = [A - B*K,    B*ki,    B*K;
+       -C,          0,       0, 0;
+        zeros(2,2), zeros(2,1), A - L_scilab*C];
+B_mf = [0; 0; 1; 0; 0];
+C_mf = [C, 0, 0, 0];
+D_mf = 0;
+
+sys_mf = syslin('c', A_mf, B_mf, C_mf, D_mf);
+t = 0:0.05:15;
+y_sim = csim('step', t, sys_mf);
+
+figure(1);
+plot(t, y_sim, 'b-', 'LineWidth', 2);
+// (Comandos graficos de limites omitidos)

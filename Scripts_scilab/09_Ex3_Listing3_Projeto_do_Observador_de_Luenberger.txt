@@ -1,0 +1,10 @@
+// [EXERCÍCIO 3 - LISTING 3] Projeto do Observador de Luenberger
+
+// --- Item C: Observador de Estados ---
+s_obs1 = -2 + 2*%i;
+s_obs2 = -2 - 2*%i;
+P_obs = [s_obs1, s_obs2];
+
+// Aplicando Dualidade (transposto)
+L_scilab = ppol(A', C', P_obs)';
+disp(L_scilab, "Ganho do Observador L:");

@@ -1,0 +1,35 @@
+// [EXERCÍCIO 1 - LISTING 1] Cálculo dos ganhos com a função horner no Scilab.
+
+// Definição do sistema e polinomio em s
+s=%s
+G=syslin('c', 200*s + 100, 400*s^2 + 200*s + 100)
+
+// Frequencias solicitadas (rad/s)
+w1 = 10;
+w2 = 20;
+
+// Avaliação da FT em s = j*w usando horner
+g_jw1 = horner(G, %i*w1)
+g_jw2 = horner(G, %i*w2)
+
+// Módulo dos ganhos
+mag1 = abs(g_jw1)
+mag2 = abs(g_jw2)
+
+// Ganho em dB de cada módulo
+Y1 = -20*log10(mag1);
+Y2 = -20*log10(mag2);
+
+// Amplitudes de saída para entrada de 5 cm
+Um = 5; // cm
+
+Ym1 = Um * mag1;
+Ym2 = Um * mag2;
+
+// Exibição dos resultados
+printf("--- Resultados para w = 10 rad/s ---\n");
+printf("Ganho de Amplitude |g(j10)|: %.6f (-%.2f dB)\n", mag1, Y1);
+printf("Amplitude Ym1: %.4f cm (%.6f m)\n\n", Ym1, Ym1/100);
+printf("--- Resultados para w = 20 rad/s ---\n");
+printf("Ganho de Amplitude |g(j20)|: %.6f (-%.2f dB)\n", mag2, Y2);
+printf("Amplitude Ym2: %.4f cm (%.6f m)\n\n", Ym2, Ym2/100);

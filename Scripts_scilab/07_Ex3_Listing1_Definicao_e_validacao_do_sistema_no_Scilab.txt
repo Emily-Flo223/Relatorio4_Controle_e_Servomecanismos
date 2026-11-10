@@ -1,0 +1,14 @@
+// [EXERCÍCIO 3 - LISTING 1] Definição e validação do sistema no Scilab
+
+// --- Item A: Parametros e Matrizes ---
+A = [-1/3, 1/3; 5/8, -25/24];
+B = [2/3; 0];
+C = [0, 1];
+D = 0;
+
+Mc = cont_mat(A, B);
+Mo = obsv_mat(A, C);
+disp(Mc, "Matriz de Controlabilidade (Mc):");
+disp(Mo, "Matriz de Observabilidade (Mo):");
+disp(rank(Mc), "Posto de Controlabilidade:");
+disp(rank(Mo), "Posto de Observabilidade:");
