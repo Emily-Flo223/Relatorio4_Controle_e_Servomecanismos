@@ -1,6 +1,6 @@
-// [EXERCÍCIO 3 - LISTING 4] Simulação do Sistema Completo de 5ª Ordem
+// [EXERCÍCIO 3 - LISTING 4] Simulação do Sistema Completo de 5ª Ordem e Comparação
 
-// --- Item D: Simulacao em Malha Fechada ---
+// --- Item D: Simulacao em Malha Fechada e Comparacao ---
 A_mf = [A - B*K,    B*ki,    B*K;
        -C,          0,       0, 0;
         zeros(2,2), zeros(2,1), A - L_scilab*C];
@@ -9,9 +9,37 @@ C_mf = [C, 0, 0, 0];
 D_mf = 0;
 
 sys_mf = syslin('c', A_mf, B_mf, C_mf, D_mf);
-t = 0:0.05:15;
-y_sim = csim('step', t, sys_mf);
+t = 0:0.02:15;
+q_nom = 0.1;                 // vazao nominal (m3/s)
+h_ref = 3 * q_nom;           // h2 em regime = R2*q = 0.3 m
+u_step = h_ref * ones(1, length(t));
 
-figure(1);
-plot(t, y_sim, 'b-', 'LineWidth', 2);
-// (Comandos graficos de limites omitidos)
+// Caso 1: Condicao ideal (sem erro no observador: e(0) = 0)
+x0_ideal = [0; 0; 0; 0; 0];
+y_ideal  = csim(u_step, t, sys_mf, x0_ideal);
+
+// Caso 2: Observador com erro inicial (e(0) = -0.2*h_ref*[1; 1])
+x0_real  = [0; 0; 0; -0.2*h_ref; -0.2*h_ref];
+y_real   = csim(u_step, t, sys_mf, x0_real);
+
+f = scf(1); clf;
+f.figure_size = [900, 650];
+plot(t, y_ideal, 'k--', 'LineWidth', 2);
+plot(t, y_real,  'b-',  'LineWidth', 2);
+plot(t, u_step,  'r:',  'LineWidth', 1.5);
+
+// Limites visuais de especificacoes
+plot(t, 1.15 * h_ref * ones(1, length(t)), 'm-.', 'LineWidth', 1.5);
+plot([10 10], [0 1.3*h_ref], 'g-.', 'LineWidth', 1.5);
+
+xtitle("Comparacao: Estados Medidos vs. Estimados via Observador", "Tempo (s)", "Nivel h2 (m)");
+a = gca();
+a.data_bounds = [0, 0; 15, 1.2*h_ref];
+a.font_size = 4;
+a.title.font_size = 4;
+a.x_label.font_size = 4;
+a.y_label.font_size = 4;
+lgd = legend(["Ideal (Letra B: e(0) = 0)", "Com Observador (Letra C: e(0) != 0)", "Referencia r = 0.3 m (q = 0.1 m3/s)", "Teto Mp = 15%", "Limite ts = 10 s"], 4);
+lgd.font_size = 4;
+xgrid();
+xs2png(f, "Respostaaodegrau.png");

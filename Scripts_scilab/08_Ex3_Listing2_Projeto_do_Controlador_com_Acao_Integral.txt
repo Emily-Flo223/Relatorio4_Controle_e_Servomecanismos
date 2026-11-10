@@ -7,6 +7,6 @@ P_des = [-1 + %i, -1 - %i, -5];
 
 Ka = ppol(Aa, Ba, P_des);
 K = [Ka(1), Ka(2)];
-ki = -Ka(3);
+ki = -Ka(3);   // Ka = [K, -ki]  =>  ki = +24
 disp(K, "Ganhos K:");
 disp(ki, "Ganho Integral ki:");

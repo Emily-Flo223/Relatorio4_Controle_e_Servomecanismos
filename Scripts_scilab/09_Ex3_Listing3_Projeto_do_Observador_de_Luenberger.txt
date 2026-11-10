@@ -1,8 +1,8 @@
 // [EXERCÍCIO 3 - LISTING 3] Projeto do Observador de Luenberger
 
 // --- Item C: Observador de Estados ---
-s_obs1 = -2 + 2*%i;
-s_obs2 = -2 - 2*%i;
+s_obs1 = -10 + 10*%i;
+s_obs2 = -10 - 10*%i;
 P_obs = [s_obs1, s_obs2];
 
 // Aplicando Dualidade (transposto)

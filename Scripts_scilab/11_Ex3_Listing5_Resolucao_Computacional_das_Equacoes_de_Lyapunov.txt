@@ -1,7 +1,7 @@
 // [EXERCÍCIO 3 - LISTING 5] Resolução Computacional das Equações de Lyapunov
 
 // --- Item E: Matrizes de Lyapunov ---
-A_cl = Aa - Ba*[K, -ki];
+A_cl = Aa - Ba*[K, -ki];   // Ka = [K, -ki], com ki = +24
 Q_c = eye(3, 3);
 Pc = lyap(A_cl, -Q_c, 'c'); 
 
